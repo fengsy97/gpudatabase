@@ -1,8 +1,14 @@
 import React, {Component}  from 'react';
 import DataTable from 'datatables.net-dt';
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 import "../style/jquery.dataTables.min.css"
 import "../style/datatables.min.css"
 import "../style/flags32.css"
+
 // import "../style/select.dataTables.min.css"
 const $ = require('jquery');
 export default class Datatable  extends Component {
@@ -37,6 +43,7 @@ export default class Datatable  extends Component {
   }
   componentDidMount() {
     this.table = $('#example').DataTable({
+        displayLength: 25,
         columns: [
             {
               title: 'Name',
@@ -58,7 +65,6 @@ export default class Datatable  extends Component {
                   color = 'red';
                 }
                 return '<span style="color: '+color+';">'+data+'</span>';
-
               }
             },
             {
@@ -86,48 +92,37 @@ export default class Datatable  extends Component {
             },
         ],
         data: this.state["data"],
-        // "bDestroy": true
     });
   }
   render() {
     return (
-      <>
-          <div className="container text-center">
-                <div className="row">
-                    <div className="col">
-                        <div className="form-floating">
-                            <textarea  className="form-control" placeholder="Leave a comment here" id="MinTDP"></textarea>
-                            <label >Min TDP</label>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div className="form-floating">
-                            <textarea className="form-control" placeholder="Leave a comment here" id="MaxTDP"></textarea>
-                            <label >Max TDP</label>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div className="form-floating">
-                            <textarea className="form-control" placeholder="Leave a comment here" id="MinLength"></textarea>
-                            <label >Min Length</label>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div className="form-floating">
-                            <textarea className="form-control" placeholder="Leave a comment here" id="MaxLength"></textarea>
-                            <label >Max Length</label>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <button onClick={this.filter} type="button" className="btn btn-primary">Apply Filter</button>
-                    </div>
-                </div>
-            </div>
-            <hr className="mt-5 mb-4" />
-            <div>
-                {/* <table className="display" width="100%" ref={el => this.el = el}></table> */}
-                <table id="example"  className="display" width="100%" ></table>
-            </div>
+      <>  
+        <Row>
+          <Col>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Control type="email" placeholder="Enter Max TDP" />
+          </Form.Group>
+          </Col>
+          <Col>
+            <Form.Control type="email" placeholder="Enter Max Length" />
+          </Col>
+          <Col>
+            <Form.Control type="email" placeholder="Enter Max Width" />
+          </Col>
+          <Col>
+            <Form.Control type="email" placeholder="Enter Max Height" />
+          </Col>
+          <Col>
+            <Button variant="primary" type="submit">Apply Filter</Button>
+          </Col>
+        </Row>
+        <hr className="mt-5 mb-4" />
+        <div>
+            {/* <table className="display" width="100%" ref={el => this.el = el}></table> */}
+            <table id="example"  className="display" width="100%" ></table>
+        </div>
+        <hr className="mt-5 mb-4" />
+        <p className="text-muted">Created by Sion.</p>
       </>
     )
   }
