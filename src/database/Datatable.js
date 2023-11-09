@@ -13,11 +13,8 @@ import {Link} from 'react-router-dom';
 
 // import "../style/select.dataTables.min.css"
 const $ = require('jquery');
-
-// const gpudata = [];
 const Gpus = {
-  gpudata : [],
-  test:0
+  gpudata : []
 };
 
 var AMDjson = require('./GPUs.json');
