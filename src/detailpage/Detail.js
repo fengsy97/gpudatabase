@@ -2,7 +2,7 @@ import React, {Component}  from 'react';
 import { Gpus } from "../database/Datatable";
 import "../style/bootstrap.min.css"
 
-const $ = require('jquery');
+// const $ = require('jquery');
 const queryString = window.location.search;
 console.log(Gpus.gpudata[0]);
 const urlParams = new URLSearchParams(queryString);
