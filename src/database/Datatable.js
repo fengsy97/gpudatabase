@@ -1,55 +1,70 @@
 import React, {Component}  from 'react';
 import DataTable from 'datatables.net-dt';
-import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from "react-router-dom";
+// import {useNavigate} from 'react-router-dom';
 import "../style/jquery.dataTables.min.css"
 import "../style/datatables.min.css"
 import "../style/flags32.css"
+import {Link} from 'react-router-dom';
 
 // import "../style/select.dataTables.min.css"
 const $ = require('jquery');
+
+// const gpudata = [];
+const Gpus = {
+  gpudata : [],
+  test:0
+};
+
+var AMDjson = require('./GPUs.json');
+// var gpudata = [];
+var id = 0;
+for(var key in AMDjson){
+  var data = AMDjson[key];
+  if(data["Memory Size"] === -1){
+    data["Memory Size"] = "N/A";
+  }
+  if(data["Length"] === -1){
+    data["Length"] = "N/A";
+  }
+  if(data["TDP"] === -1){
+    data["TDP"] = "N/A";
+  }
+  if(data["Width"] === -1){
+    data["Width"] = "N/A";
+  }
+  if(data["Height"] === -1){
+    data["Height"] = "N/A";
+  }
+  data["id"] = id;
+  id++;
+  Gpus.gpudata.push(data);
+  // gpudata.push(data);
+}
+
 export default class Datatable  extends Component {
   constructor(props) {
     super(props);
-    var AMDjson = require('./GPUs.json');
-    var gpudata = [];
-    for(var key in AMDjson){
-      var data = AMDjson[key];
-      if(data["Memory Size"] === -1){
-        data["Memory Size"] = "N/A";
-      }
-      if(data["Length"] === -1){
-        data["Length"] = "N/A";
-      }
-      if(data["TDP"] === -1){
-        data["TDP"] = "N/A";
-      }
-      if(data["Width"] === -1){
-        data["Width"] = "N/A";
-      }
-      if(data["Height"] === -1){
-        data["Height"] = "N/A";
-      }
 
-      gpudata.push(data);
-    }
-    // console.log(gpudata);
     this.state = {
-      "data": gpudata
+      "data": Gpus.gpudata
     }
   }
+  
+  // <Link to="/signup"></Link>
   componentDidMount() {
     this.table = $('#example').DataTable({
         displayLength: 25,
         columns: [
             {
               title: 'Name',
-              data: 'gpuname',
+              data: 'id',
               render: function (data) {
-                return '<a href="http://cloudtables.com">' + data + '</a>';
+                return '<a href="/detail?gpuId='+data+'">' + Gpus.gpudata[data]['gpuname'] + '</a>';
               }
             },
             {
@@ -127,3 +142,4 @@ export default class Datatable  extends Component {
     )
   }
 }
+export { Gpus };
