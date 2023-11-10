@@ -17,8 +17,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <>
     <div className='App'><App/> </div>
-    {/* <App/> */}
-    {/* <button  onClick={toggleTheme}>Switch theme</button> */}
     </>
     
     
