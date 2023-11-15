@@ -17,7 +17,7 @@ function App() {
     <Container as="main" className="py-4 px-3 mx-auto">
     {/* <hr className="mt-5 mb-4" /> */}
     <BrowserRouter>
-    <div><Routes>
+    <div className="py-4 px-3 mx-auto"><Routes>
       <Route exact path="/" element={<Datatable />} />
       <Route exact path="/home" element={<Datatable />} />
       <Route exact path="/compare" element={<Compare />} />

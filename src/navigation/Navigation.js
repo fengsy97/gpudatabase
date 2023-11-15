@@ -7,7 +7,7 @@ import '../style/bootstrap.min.css';
 import './Navigation.css';
 export default function Navigation() {
   return (
-    <div className='Navigation' >
+    <div className='Navigation ' >
       <Navbar data-bs-theme="dark" bg="dark" expand="lg" className="bg-body-tertiary">
       <Container>
         <Navbar.Brand >GPU Help</Navbar.Brand>

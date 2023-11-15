@@ -46,12 +46,45 @@ for(var key in AMDjson){
 export default class Datatable  extends Component {
   constructor(props) {
     super(props);
-
+    this.filter = this.filter.bind(this);
     this.state = {
       "data": Gpus.gpudata
     }
   }
-  
+  filter() {
+    var fdata = [];
+    var MaxTDP = Infinity;
+    var MaxLength = Infinity;
+    var MaxWidth = Infinity;
+    var MaxHeight = Infinity;
+    if(document.getElementById("MaxTDP").value !== ""){
+      MaxTDP = Number(document.getElementById("MaxTDP").value);
+    }
+    if(document.getElementById("MaxLength").value !== ""){
+      MaxLength = Number(document.getElementById("MaxLength").value);
+    } 
+    if(document.getElementById("MaxWidth").value !== ""){
+      MaxWidth = Number(document.getElementById("MaxWidth").value);
+    }
+    if(document.getElementById("MaxHeight").value !== ""){
+      MaxHeight = Number(document.getElementById("MaxHeight").value);
+    }
+    console.log(MaxTDP);
+    console.log(MaxLength);
+    console.log(MaxWidth);
+    console.log(MaxHeight);
+    for(var i = 0; i < Gpus.gpudata.length; i++){
+      var data = Gpus.gpudata[i];
+      if(data["TDP"] <= MaxTDP && data["Length"] <= MaxLength && data["Width"] <= MaxWidth && data["Height"] <= MaxHeight){
+        fdata.push(data);
+      }
+    }
+    this.table.clear();
+    this.table.rows.add(fdata);
+    this.table.draw();
+    // this.table.destroy();
+
+  }
   // <Link to="/signup"></Link>
   componentDidMount() {
     this.table = $('#example').DataTable({
@@ -104,6 +137,7 @@ export default class Datatable  extends Component {
             },
         ],
         data: this.state["data"],
+        "bDestroy": true
     });
   }
   render() {
@@ -112,20 +146,20 @@ export default class Datatable  extends Component {
         <Row>
           <Col>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control type="email" placeholder="Enter Max TDP" />
+            <Form.Control type="email" placeholder="Enter Max TDP" id="MaxTDP"/>
           </Form.Group>
           </Col>
           <Col>
-            <Form.Control type="email" placeholder="Enter Max Length" />
+            <Form.Control type="email" placeholder="Enter Max Length" id="MaxLength"/>
           </Col>
           <Col>
-            <Form.Control type="email" placeholder="Enter Max Width" />
+            <Form.Control type="email" placeholder="Enter Max Width" id="MaxWidth"/>
           </Col>
           <Col>
-            <Form.Control type="email" placeholder="Enter Max Height" />
+            <Form.Control type="email" placeholder="Enter Max Height" id="MaxHeight"/>
           </Col>
           <Col>
-            <Button variant="primary" type="submit">Apply Filter</Button>
+            <Button onClick={this.filter} variant="primary" type="submit">Apply Filter</Button>
           </Col>
         </Row>
         <hr className="mt-5 mb-4" />
