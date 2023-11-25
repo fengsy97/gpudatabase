@@ -10,20 +10,47 @@ import "../style/jquery.dataTables.min.css"
 import "../style/datatables.min.css"
 import "../style/flags32.css"
 import {Link} from 'react-router-dom';
-import { getGpus } from "../database/Database";
 
-
+// import "../style/select.dataTables.min.css"
 const $ = require('jquery');
+const Gpus = {
+  gpudata : [],
+  compare : new Set()
+};
 
-const gpudata = await getGpus();
+var AMDjson = require('./GPUs.json');
+// var gpudata = [];
+var id = 0;
+for(var key in AMDjson){
+  var data = AMDjson[key];
+  if(data["Memory Size"] === -1){
+    data["Memory Size"] = "N/A";
+  }
+  if(data["Length"] === -1){
+    data["Length"] = "N/A";
+  }
+  if(data["TDP"] === -1){
+    data["TDP"] = "N/A";
+  }
+  if(data["Width"] === -1){
+    data["Width"] = "N/A";
+  }
+  if(data["Height"] === -1){
+    data["Height"] = "N/A";
+  }
+  data["id"] = id;
+  id++;
+  Gpus.gpudata.push(data);
+  // gpudata.push(data);
+}
 
 export default class Datatable  extends Component {
   constructor(props) {
     super(props);
     this.filter = this.filter.bind(this);
     this.state = {
-      "data": gpudata
-    };
+      "data": Gpus.gpudata
+    }
   }
   filter() {
     var fdata = [];
@@ -47,8 +74,8 @@ export default class Datatable  extends Component {
     console.log(MaxLength);
     console.log(MaxWidth);
     console.log(MaxHeight);
-    for(var i = 0; i < gpudata.length; i++){
-      var data = gpudata[i];
+    for(var i = 0; i < Gpus.gpudata.length; i++){
+      var data = Gpus.gpudata[i];
       if(data["TDP"] <= MaxTDP && data["Length"] <= MaxLength && data["Width"] <= MaxWidth && data["Height"] <= MaxHeight){
         fdata.push(data);
       }
@@ -56,6 +83,8 @@ export default class Datatable  extends Component {
     this.table.clear();
     this.table.rows.add(fdata);
     this.table.draw();
+    // this.table.destroy();
+
   }
   // <Link to="/signup"></Link>
   componentDidMount() {
@@ -66,8 +95,7 @@ export default class Datatable  extends Component {
               title: 'Name',
               data: 'id',
               render: function (data) {
-                return '<a href="/detail?gpuId='+data+'">' + gpudata[data]['gpuname'] + '</a>';
-                // return '<Link to={detail}>' + Gpus.gpudata[data]['gpuname'] + '</Link>';
+                return '<a href="/detail?gpuId='+data+'">' + Gpus.gpudata[data]['gpuname'] + '</a>';
               }
             },
             {
@@ -146,3 +174,4 @@ export default class Datatable  extends Component {
     )
   }
 }
+export { Gpus };
