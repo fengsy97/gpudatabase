@@ -13,6 +13,7 @@
     "datatables.net-dt": "^1.13.6",
     "flowbite-react": "^0.6.4",
     "jquery": "^3.7.1",
+    "localforage": "^1.10.0",
     "next": "^13.4.12",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",

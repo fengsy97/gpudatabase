@@ -13,6 +13,7 @@ function App() {
   return (
     <>
     <Nva />
+    
     {/* <Counter /> */}
     <Container as="main" className="py-4 px-3 mx-auto">
     {/* <hr className="mt-5 mb-4" /> */}

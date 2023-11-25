@@ -1,13 +1,15 @@
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
+import {Link} from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 // import NavDropdown from 'react-bootstrap/NavDropdown';
 import '../style/bootstrap.min.css';
-import './Navigation.css';
+// import './Navigation.css';
 export default function Navigation() {
   return (
     <div className='Navigation ' >
+      {/* <Link href="/home">Home</Link> */}
       <Navbar data-bs-theme="dark" bg="dark" expand="lg" className="bg-body-tertiary">
       <Container>
         <Navbar.Brand >GPU Help</Navbar.Brand>
@@ -15,7 +17,7 @@ export default function Navigation() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="/compare">Compare</Nav.Link>
+            {/* <Nav.Link href="/compare">Compare</Nav.Link> */}
             <Nav.Link href="/about">About</Nav.Link>
             {/* <Nav.Link href="#compare">Compare</Nav.Link> */}
 
